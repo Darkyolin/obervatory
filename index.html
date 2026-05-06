@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CALCULUS — The Fun Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <header>
+    <div class="logo">CALCULUS<span class="dot">●</span></div>
+    <div class="fun-gigs-nav">
+      <button class="nav-btn active" data-tab="calc">Calculator</button>
+      <button class="nav-btn" data-tab="tip">Tip Splitter</button>
+      <button class="nav-btn" data-tab="bmi">BMI Meter</button>
+      <button class="nav-btn" data-tab="coin">Coin Flip</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- CALCULATOR -->
+    <section id="tab-calc" class="tab active">
+      <div class="calc-wrapper">
+        <div class="display-panel">
+          <div class="expression" id="expression">0</div>
+          <div class="result" id="result"></div>
+          <div class="history-strip" id="historyStrip"></div>
+        </div>
+        <div class="buttons">
+          <button class="btn span2 fn" data-action="clear">AC</button>
+          <button class="btn fn" data-action="sign">±</button>
+          <button class="btn fn" data-action="percent">%</button>
+          <button class="btn op" data-action="op" data-val="÷">÷</button>
+
+          <button class="btn num" data-action="num" data-val="7">7</button>
+          <button class="btn num" data-action="num" data-val="8">8</button>
+          <button class="btn num" data-action="num" data-val="9">9</button>
+          <button class="btn op" data-action="op" data-val="×">×</button>
+
+          <button class="btn num" data-action="num" data-val="4">4</button>
+          <button class="btn num" data-action="num" data-val="5">5</button>
+          <button class="btn num" data-action="num" data-val="6">6</button>
+          <button class="btn op" data-action="op" data-val="−">−</button>
+
+          <button class="btn num" data-action="num" data-val="1">1</button>
+          <button class="btn num" data-action="num" data-val="2">2</button>
+          <button class="btn num" data-action="num" data-val="3">3</button>
+          <button class="btn op" data-action="op" data-val="+">+</button>
+
+          <button class="btn num span2" data-action="num" data-val="0">0</button>
+          <button class="btn num" data-action="decimal">.</button>
+          <button class="btn eq" data-action="equals">=</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIP SPLITTER -->
+    <section id="tab-tip" class="tab">
+      <div class="gig-card">
+        <h2 class="gig-title">🍕 Tip Splitter</h2>
+        <p class="gig-sub">Split bills like a pro</p>
+        <div class="input-row">
+          <label>Bill Amount ($)</label>
+          <input type="number" id="billAmt" placeholder="0.00" min="0" />
+        </div>
+        <div class="tip-buttons">
+          <span class="tip-label">Tip %</span>
+          <div class="tip-row">
+            <button class="tip-btn" data-tip="10">10%</button>
+            <button class="tip-btn" data-tip="15">15%</button>
+            <button class="tip-btn active" data-tip="18">18%</button>
+            <button class="tip-btn" data-tip="20">20%</button>
+            <button class="tip-btn" data-tip="25">25%</button>
+          </div>
+        </div>
+        <div class="input-row">
+          <label>People</label>
+          <div class="stepper">
+            <button class="step-btn" id="stepDown">−</button>
+            <span id="peopleCount">2</span>
+            <button class="step-btn" id="stepUp">+</button>
+          </div>
+        </div>
+        <div class="tip-results">
+          <div class="tip-result-row">
+            <span>Tip / person</span><strong id="tipPerPerson">$0.00</strong>
+          </div>
+          <div class="tip-result-row">
+            <span>Total / person</span><strong id="totalPerPerson">$0.00</strong>
+          </div>
+          <div class="tip-result-row highlight">
+            <span>Grand Total</span><strong id="grandTotal">$0.00</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BMI -->
+    <section id="tab-bmi" class="tab">
+      <div class="gig-card">
+        <h2 class="gig-title">⚖️ BMI Meter</h2>
+        <p class="gig-sub">Know your body</p>
+        <div class="toggle-row">
+          <button class="unit-btn active" id="unitMetric">Metric</button>
+          <button class="unit-btn" id="unitImperial">Imperial</button>
+        </div>
+        <div id="metricInputs">
+          <div class="input-row"><label>Height (cm)</label><input type="number" id="heightCm" placeholder="170" /></div>
+          <div class="input-row"><label>Weight (kg)</label><input type="number" id="weightKg" placeholder="70" /></div>
+        </div>
+        <div id="imperialInputs" style="display:none">
+          <div class="input-row"><label>Height (ft)</label><input type="number" id="heightFt" placeholder="5" /></div>
+          <div class="input-row"><label>Height (in)</label><input type="number" id="heightIn" placeholder="7" /></div>
+          <div class="input-row"><label>Weight (lbs)</label><input type="number" id="weightLbs" placeholder="154" /></div>
+        </div>
+        <button class="calc-gig-btn" id="calcBmi">Calculate BMI</button>
+        <div class="bmi-result" id="bmiResult" style="display:none">
+          <div class="bmi-number" id="bmiNum">--</div>
+          <div class="bmi-label" id="bmiLabel">--</div>
+          <div class="bmi-bar-wrap">
+            <div class="bmi-bar">
+              <div class="bmi-marker" id="bmiMarker"></div>
+              <div class="bmi-zones">
+                <div style="flex:1.85;background:#5b9cf6">U</div>
+                <div style="flex:0.9;background:#57cc99">N</div>
+                <div style="flex:0.75;background:#f7c59f">OW</div>
+                <div style="flex:2;background:#f4736e">OB</div>
+              </div>
+            </div>
+            <div class="bmi-scale-labels">
+              <span>16</span><span>18.5</span><span>25</span><span>30</span><span>40</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COIN FLIP -->
+    <section id="tab-coin" class="tab">
+      <div class="gig-card coin-card">
+        <h2 class="gig-title">🪙 Coin Flip</h2>
+        <p class="gig-sub">Let fate decide</p>
+        <div class="coin-container">
+          <div class="coin" id="coin">
+            <div class="coin-face heads">H</div>
+            <div class="coin-face tails">T</div>
+          </div>
+        </div>
+        <button class="calc-gig-btn flip-btn" id="flipBtn">Flip It!</button>
+        <div class="coin-result" id="coinResult"></div>
+        <div class="coin-stats">
+          <div class="stat">
+            <div id="headsCount">0</div><span>Heads</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <div id="tailsCount">0</div><span>Tails</span>
+          </div>
+        </div>
+        <button class="reset-btn" id="resetCoin">Reset Stats</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Built with ❤️ — CALCULUS v1.0</span>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
